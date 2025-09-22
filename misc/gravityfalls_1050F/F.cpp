@@ -44,7 +44,7 @@ int main(){
     while(T--){
         int n;
         cin >> n;
-        vector<vector<int>> nums(n);
+        vector<vector<int > > nums(n);
         int mk = -1;
         for(int i = 0; i < n; i++){
             int k;
