@@ -4,6 +4,7 @@
         "format": "cpp",
         "ostream": "cpp",
         "iosfwd": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "tuple": "cpp"
     }
 }

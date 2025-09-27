@@ -1,4 +1,3 @@
-using namespace std;
 #include <iomanip>
 #include <algorithm>
 #include <string>
@@ -17,6 +16,9 @@ using namespace std;
 #include <set>
 #include <stack>
 
+using namespace std;
+using std::tuple;
+
 typedef long long ll;
 typedef unsigned long long ull;
 typedef vector<vector<int > > vvi;
@@ -26,7 +28,7 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 typedef vector<ull> vull;
 typedef vector<pair<int, int > > vpi;
-typedef vector<tuple<int, int > > vti;
+typedef vector<tuple<int, int>> vti;
 typedef vector<vector<tuple<int, int > > > vvti;
 typedef vector<tuple<ll, ll> > vtll;
 typedef vector<bool> vb;

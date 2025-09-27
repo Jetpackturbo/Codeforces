@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Debug C++ file",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [],
@@ -11,8 +11,9 @@
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
-            "MIMode": "gdb",
-            "preLaunchTask": "build"
+            "MIMode": "lldb",
+            "preLaunchTask": "build",
+            "miDebuggerPath": "/usr/bin/lldb"
         }
     ]
 }

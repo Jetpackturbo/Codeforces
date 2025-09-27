@@ -37,15 +37,85 @@ typedef vector<string> vs;
 
 const int MOD = 998244353;
 
-int main(){
-    // ifstream cin("E.in");
-    int T;
-    cin >> T;
-    while(T--){
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
         int n;
-        cin >> n;
-        
-        
+        string s;
+        cin >> n >> s;
+        vector<int> ones;
+        for (int i = 0; i < n; i++) {
+            if (s[i] == '1')
+                ones.push_back(i);
+        }
+        bool works = true;
+        vi ret(n);
+        int op = 0;
+        for (int i = 0; i < n; i++) {
+            if (op == (int)ones.size()) {
+                // no more ones left, fill with pattern
+                if (i == n-1) {
+                    works = false;
+                    break;
+                }
+                ret[i] = n;
+                i++;
+                while(i < n) {
+                    ret[i] = i;
+                    i++;
+                }
+                break;
+            }
+            if (i == ones[op] - 1) {
+                works = false;
+                break;
+            }
+            if (i < ones[op]) {
+                ret[i] = ones[op];
+                i++;
+                while(i < ones[op]) {
+                    ret[i] = i;
+                    i++;
+                }
+            }
+            ret[ones[op]] = ones[op]+1;
+            op++;
+        }
+        if (!works)
+            cout << "NO" << endl;
+        else {
+            cout << "YES" << endl;
+            for (int &c : ret) {
+                cout << c << " ";
+            }
+            cout << endl;
+        }
+        // for (int i = 0; i < n; i++) {
+        //     if (s[i] == '0') {
+        //         zeros.push_back(i+1);
+        //     }
+        // }
+        // if (zeros.size() == 1) {
+        //     cout << "NO" << endl;
+        // } else {
+        //     cout << "YES" << endl;
+        //     vector<int> p(n+1, 0);
+        //     for (int i = 1; i <= n; i++) {
+        //         if (s[i-1] == '1') {
+        //             p[i] = i;
+        //         }
+        //     }
+        //     if (!zeros.empty()) {
+        //         int k = zeros.size();
+        //         for (int j = 0; j < k; j++) {
+        //             p[zeros[j]] = zeros[(j+1) % k];
+        //         }
+        //     }
+        //     for (int i = 1; i <= n; i++) {
+        //         cout << p[i] << " ";
+        //     }
+        //     cout << endl;
     }
     return 0;
 }
