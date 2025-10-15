@@ -46,48 +46,62 @@ const ll MOD = 998244353, mod=1e9+7;
 #define intin(v, n) for(int i = 0; i < n; i++) cin >> v[i];
 #define cout_space(v) for (int &c : v) cout << c << " "
 
+vector<int> z_function(string s) {
+    int n = s.size();
+    vector<int> z(n);
+    int l = 0, r = 0;
+    for(int i = 1; i < n; i++) {
+        if(i < r) {
+            z[i] = min(r - i, z[i - l]);
+        }
+        while(i + z[i] < n && s[z[i]] == s[i + z[i]]) {
+            z[i]++;
+        }
+        if(i + z[i] > r) {
+            l = i;
+            r = i + z[i];
+        }
+    }
+    return z;
+}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
-    int T;
-    cin >> T;
-    while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
-        }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
+    // ifstream cin("borders.in");
+    string s;
+    cin >> s;
+    int n = s.length();
+    vi z = z_function(s);
+
+    vi ret;
+    for (int i = 1; i < n;i++) {
+        if (z[i] == n - i) {
+            cout << i << " ";
         }
     }
+    cout << n << endl;
+    // vll pow(n, 0);
+    // pow[0] = 1;
+    // for (int i = 1; i < n; i++) {
+    //     pow[i] = (pow[i-1] * 27) % mod;
+    // }
+    // vll shash(n+1, 0);
+    // for (int i = 0; i < n; i++) {
+    //     shash[i+1] = (shash[i] + pow[i] * (s[i] - 'a')) % mod;
+    // }
+    // for (int i = 1; i <= n; i++) {
+    //     // note always first works
+    //     bool works = true;
+    //     int ni = i;
+    //     while (ni <= n) {
+    //         if (i + ni > n) {
+    //             // exceeds, check
+                
+    //         }
+    //         if (shash[i + ni])
+    //     }
+    // }
+    // cout_space(ret);
     return 0;
 }

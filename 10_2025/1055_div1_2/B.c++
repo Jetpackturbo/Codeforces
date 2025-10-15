@@ -50,44 +50,42 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
+    // ifstream cin("B.in");
     int T;
     cin >> T;
     while (T--) {
         int n;
         cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
+        int kx, ky, dx, dy;
+        cin >> kx >> ky >> dx >> dy;
+        int xd,yd;
+        // int dist = max(abs(dx - kx), abs(ky - dy));
+        // int dc = abs(abs(dx - kx) -  abs(ky - dy));
+        if (kx < dx) {
+            // we run towards zero
+           xd = kx;
         }
-        if (!works)
-            cout << -1 << endl;
+        else if (kx == dx)
+            xd = 0;
         else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
+            xd = n - kx;
         }
+
+        if (ky < dy)
+            yd = ky;
+        else if (ky == dy)
+            yd = 0;
+        else
+            yd = n - ky;
+    
+        int dist = max(abs(dx-kx) + xd, abs(dy - ky) + yd);
+        // if (abs(dx - kx) > abs(ky - dy)) {
+        //     dist = max(yd - abs(dx - kx) + abs(dy - ky), abs(dx - kx) + xd);
+        // }
+        // else {
+        //     dist = max(xd + abs(dx - kx) - abs(dy - ky), abs(ky - dy) + yd);
+        // }
+        cout << dist << endl;
     }
     return 0;
 }

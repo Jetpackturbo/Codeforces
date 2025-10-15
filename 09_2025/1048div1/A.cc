@@ -51,7 +51,7 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    ifstream cin("A.in");
+    // ifstream cin("A.in");
     int T;
     cin >> T;
     while (T--) {
@@ -66,13 +66,13 @@ int main() {
                 cv -= cc;
                 cc *= 2;
                 ret.push_back(1);
-                cout << "1 " << cc << " " << cv << endl;
+                // cout << "1 " << cc << " " << cv << endl;
             }
             else {
                 cc -= cv;
                 cv *= 2;
                 ret.push_back(2);
-                cout << "2 " << cc << " " << cv << endl;
+                // cout << "2 " << cc << " " << cv << endl;
             }
         }
         rvrs(ret);

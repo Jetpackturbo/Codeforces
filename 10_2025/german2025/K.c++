@@ -34,8 +34,8 @@ typedef vector<vector<ll> > vvll;
 typedef vector<string> vs;
 
 // #define endl '\n'
-// #define no cout<<"NO"<<endl
-// #define yes cout<<"YES"<<endl
+#define no cout<<"no"<<endl
+#define yes cout<<"yes"<<endl
 #define en end()
 #define be begin()
 #define fo(a,b,c) for(int i = a; i < b; i+=c)
@@ -50,44 +50,55 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
-    int T;
-    cin >> T;
-    while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
-        }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
-        }
+    // ifstream cin("K.in");
+    int n, a, b;
+    cin >> n >> a >> b;
+    if (a == 1 && b == 1) {
+        no;
+        return 0;
     }
+    if (a + b > n + 1) {
+        no;
+        return 0;
+    }
+    yes;
+    vi ret(n, 0);
+    if (b == 1) {
+        ret[n-1] = n;
+        for (int i = 0; i < a - 1; i++) {
+            ret[i] = n - a + i + 1;
+        }
+        for (int i = a-1; i < n - 1; i++) {
+            ret[i] = i - a + 2;
+            // cout << i << " " << ret[i] << endl;
+        }
+        cout_space(ret);
+        return 0;
+    }
+    for (int i = 0; i < a; i++) {
+        ret[i] = n - a + i + 1;
+        // cout << i << " " << ret[i] << endl;
+    }
+    if (a + b == n + 1) {
+        for (int i = 0; i < b - 1; i++) {
+            ret[n- i - 1] = i + 1;
+        }
+        cout_space(ret);
+        return 0;
+    }
+    
+    int ci = n - a;
+    for (int i = 0; i < b - 1; i++) {
+        ret[n- i - 1] = ci - b + i + 2;
+        // cout << n - i -1 << " " << ret[n - i - 1] << endl;
+    }
+    ci -= b;
+    ci++;
+    for (int i = a; i < n - b + 1; i++) {
+        ret[i] = ci;
+        // cout << i << " " << ret[i] << endl;
+        ci--;
+    }
+    cout_space(ret);
     return 0;
 }

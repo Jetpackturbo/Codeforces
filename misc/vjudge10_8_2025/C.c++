@@ -56,38 +56,22 @@ int main() {
     while (T--) {
         int n;
         cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
+        vi bosses(n);
+        intin(bosses, n);
+        vvi dp(n+1, vi(2,numeric_limits<int>::max()/10));
+        dp[0][0] = 0;
+        dp[1][1] = bosses[0] == 1 ? 1 : 0;
+        for (int i = 2; i <= n; i++) {
+            dp[i][0] = min(dp[i-1][1], dp[i-2][1]);
+            if (bosses[i-1] == 1) {
+                dp[i][1] = min(1 + dp[i-1][0], 1 + dp[i-2][0] + (bosses[i-2] == 1 ? 1 : 0));
             }
+            else {
+                dp[i][1] = min(dp[i-1][0], dp[i-2][0] + (bosses[i-2] == 1 ? 1 : 0));
+            }
+            // cout << dp[i][0] << " " << dp[i][1] << endl;
         }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
-        }
+        cout << min(dp[n][0], dp[n][1]) << endl;
     }
     return 0;
 }

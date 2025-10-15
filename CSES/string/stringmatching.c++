@@ -47,47 +47,43 @@ const ll MOD = 998244353, mod=1e9+7;
 #define cout_space(v) for (int &c : v) cout << c << " "
 
 
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
-    int T;
-    cin >> T;
-    while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
-        }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
-        }
+    // ifstream cin("stringmatching.in");
+    // using rabin-karp
+    string s, p;
+    cin >> s >> p;
+    int n = s.length(), m = p.length();
+    if (m > n) {
+        cout << 0 << endl;
+        return 0;
     }
+    else if (m == n) {
+        cout << (s == p ? 1 : 0) << endl;
+        return 0;
+    }
+    vll pows(n, 1);
+    for (int i = 1; i < n; i++) {
+        pows[i] = (pows[i-1] * 31) % mod;
+    }
+    vll shash(n+1,0);
+    for (int i = 1; i <= n; i++) {
+        shash[i] = (shash[i-1]+ (s[i-1] - 'a' + 1)*pows[i-1]) % mod;
+    }
+    ll phash = 0;
+    for (int i = 0; i < m; i++) {
+        phash += (p[i] - 'a' + 1)*pows[i];
+        phash %= mod;
+    }
+    // cout << phash << endl;
+    int count = 0;
+    for (int i = 0; i <= n - m + 1; i++) {
+        // cout << shash[i + m] - shash[i] << endl;
+        if ((shash[i + m] - shash[i] + mod) % mod == (pows[i]*phash)%mod)
+            count++;
+    }
+    cout << count << endl;
     return 0;
 }

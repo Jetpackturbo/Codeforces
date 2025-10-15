@@ -33,9 +33,9 @@ typedef vector<bool> vb;
 typedef vector<vector<ll> > vvll;
 typedef vector<string> vs;
 
-// #define endl '\n'
-// #define no cout<<"NO"<<endl
-// #define yes cout<<"YES"<<endl
+#define endl '\n'
+#define no cout<<"NO"<<endl
+#define yes cout<<"YES"<<endl
 #define en end()
 #define be begin()
 #define fo(a,b,c) for(int i = a; i < b; i+=c)
@@ -54,40 +54,39 @@ int main() {
     int T;
     cin >> T;
     while (T--) {
-        int n;
+        ll n;
         cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
+        if (n == 1) {
+            no;
+            continue;
+        }
         bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
+        ll cnp = 1;
+        while (n >= 2 * cnp) {
+            cnp *= 2;
+        }
+        while (n % 2 == 0 && n != 0) {
+            n /= 2;
+            cnp /= 2;
+        }
+        while (n > 0) {
+            if (n % 2 != n / cnp) {
+                works= false;
+                break;
+            }
+            if (n == 1) {
                 works = false;
+                break;
             }
+            n = n % cnp;
+            n /= 2;
+            cnp /= 4;
         }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
-        }
+        
+        if (works)
+            yes;
+        else
+            no;
     }
     return 0;
 }

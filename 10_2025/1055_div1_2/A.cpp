@@ -50,44 +50,19 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
+    // ifstream cin("A.in");
     int T;
     cin >> T;
     while (T--) {
         int n;
         cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
+        unordered_set<int> nums;
+        fo(0,n,1) {
+            int c;
+            cin >> c;
+            nums.insert(c);
         }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
-        }
+        cout << (nums.size() - 1) * 2 + 1 << endl;
     }
     return 0;
 }

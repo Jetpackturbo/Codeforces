@@ -50,43 +50,54 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
+    ifstream cin("B.in");
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
-        }
-        if (!works)
-            cout << -1 << endl;
+        int n, Q;
+        cin >> n >> Q;
+        vi zeroc(n, 0), onec(n, 0);
+        queue<int> zq, oq;
+        int cs; cin >> cs;
+        if (cs == 0)
+            zeroc[0]++;
+            zq.push(0);
         else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
+            onec[0]++;
+            oq.push(0);
+        }
+        fo(1,n,1) {
+            int c; cin >> c;
+            if (c == 0)
+                zeroc[i]++;
+                zq.push(0);
+            else {
+                onec[i]++;
+                oq.push(0);
             }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
+            zeroc[i] += zeroc[i-1];
+            onec[i] += onec[i-1];
+        }
+        vi ocp0, ocp1, ocp2;
+        vi zcp0, zcp1, zcp2;
+        int op0 = 0, op1 = 1, op2 = 2;
+        while (!oq.empty()) {
+            int c = oq.front();
+            oq.pop();
+            
+        }
+        while (Q--) {
+            int l, r;
+            cin >> l >> r;
+            if (r - l + 1 % 3 != 0) {
+                cout << -1 << endl;
+                continue;
             }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
+            else if (zeroc[r - 1] - zeroc[l-1] % 3 != 0 || onec[r - 1] - onec[l-1] % 3) {
+                cout << -1 << endl;
+                continue;
+            }
+            // must be possible
         }
     }
     return 0;

@@ -33,9 +33,9 @@ typedef vector<bool> vb;
 typedef vector<vector<ll> > vvll;
 typedef vector<string> vs;
 
-// #define endl '\n'
-// #define no cout<<"NO"<<endl
-// #define yes cout<<"YES"<<endl
+#define endl '\n'
+#define no cout<<"NO"<<endl
+#define yes cout<<"YES"<<endl
 #define en end()
 #define be begin()
 #define fo(a,b,c) for(int i = a; i < b; i+=c)
@@ -50,43 +50,47 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
+    // ifstream cin("B.in");
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
+        int n, k;
+        cin >> n >> k;
+        if (k == n * n - 1) {
+            no;
+
+            continue;
         }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
+        yes;
+        int i = 0;
+        while (k >= n) {
+            i++;
+            k -= n;
+            fo(0,n,1)
+                cout << "U";
             cout << endl;
+        }
+        if (i == n)
+            continue;
+        fo(0,k,1) {
+            cout << "U";
+        }
+        if (k+1 == n) {
+            cout << "D";
+            cout << endl;
+        }
+        else {
+            fo(k,n-1,1) {
+                cout << "R";
+            }
+            cout << "L" << endl;
+        }
+        i++;
+        for (int c = i; c < n; c++) {
+            for(int j = 0; j < n - 1; j++) {
+                cout << "R";
+            }
+            cout <<"L" << endl;
         }
     }
     return 0;

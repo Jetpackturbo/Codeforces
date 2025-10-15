@@ -33,15 +33,15 @@ typedef vector<bool> vb;
 typedef vector<vector<ll> > vvll;
 typedef vector<string> vs;
 
-// #define endl '\n'
-// #define no cout<<"NO"<<endl
-// #define yes cout<<"YES"<<endl
+#define endl '\n'
+#define no cout<<"NO"<<endl
+#define yes cout<<"YES"<<endl
 #define en end()
 #define be begin()
 #define fo(a,b,c) for(int i = a; i < b; i+=c)
 #define srt(a) sort(a.be, a.en)
 #define NMAX numeric_limits<ll>::max()
-const ll MOD = 998244353, mod=1e9+7;
+const ll MOD = 676767677, mod=1e9+7;
 #define NMIN numeric_limits<int>::min()
 #define intin(v, n) for(int i = 0; i < n; i++) cin >> v[i];
 #define cout_space(v) for (int &c : v) cout << c << " "
@@ -50,44 +50,44 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
+    // ifstream cin("E.in");
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
+        int n, m, k;
+        cin >> n >> m >> k;
+        // int ct = 0;
+        unordered_map<int, int> occur;
+        ll cf = 0;
+        for (int i = 0; i < k; i++) {
+            int a, b;
+            cin >> a >> b;
+            if (n == 1) {
+                cf += b - 1 == 1 ? 1 : 0;
+                cf %= 2;
+            }
+            else if (b > 1) {
+                occur[b]++;   
             }
         }
-        if (!works)
-            cout << -1 << endl;
+        // cout << cf << " ";
+        if (n == 0 && cf != 0)
+            cout << "Mimo" << endl;
+        else if (n== 0)
+            cout << "Yuyu" << endl;
         else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
+            int ct = 0;
+            for (auto &cp : occur) {
+                if (cp.second % 2 == 1){
+                    ct++;
                 }
             }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
+            if (ct % 2 == 1) 
+                cout << "Mimo" << endl;
+            else
+                cout << "Yuyu" << endl;
         }
+
     }
     return 0;
 }

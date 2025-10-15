@@ -50,44 +50,26 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
-    int T;
-    cin >> T;
-    while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
+    // ifstream cin("G.in");
+    int n;
+    cin >> n;
+    string base = "!0aAa";
+    // unordered_set<string> cs;
+    int ap = 0, bp = 0, cp= 0;
+    while (n--) {
+        if (ap + 33 > 126) {
+            bp++;
+            ap = 0;
         }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
+        if (bp + 33 > 126) {
+            cp++;
+            bp = 0;
         }
+        char na = '!' + ap, nb = '!' + bp, nc = '!' + cp;
+        cout << base + na + na + nb + nb + nc + nc << endl;
+        // cs.insert(base + na + na + nb + nb + nc + nc);
+        ap++;
     }
+    // cout << cs.size() << endl;
     return 0;
 }

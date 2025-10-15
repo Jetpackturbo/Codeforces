@@ -33,9 +33,9 @@ typedef vector<bool> vb;
 typedef vector<vector<ll> > vvll;
 typedef vector<string> vs;
 
-// #define endl '\n'
-// #define no cout<<"NO"<<endl
-// #define yes cout<<"YES"<<endl
+#define endl '\n'
+#define no cout<<"NO"<<endl
+#define yes cout<<"YES"<<endl
 #define en end()
 #define be begin()
 #define fo(a,b,c) for(int i = a; i < b; i+=c)
@@ -50,44 +50,28 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
+    ifstream cin("D.in");
     int T;
     cin >> T;
     while (T--) {
         int n;
         cin >> n;
         vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
+        vll ps(n,0);
+        fo(0,n,1) {
+            cin >>nums[i];
+            ps[i] = nums[i];
+            if (i != 0)
+                ps[i] += ps[i-1];
         }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
+        nums.push_back(nums[0]);
+        ll dpl = 0, dpr = 0;
+        // dpl = abs(nums[1] - nums[0]);
+        fo(1,n,1) {
+            dpl += min(abs(nums[i+1] - nums[i]), abs(nums[i-1] - nums[i]));
         }
+        cout << dpl / 2 << " " << min(abs(nums[1] - nums[0]), abs(nums[n-1] - nums[0])) << endl;
+        // dpr[0] = abs(nums[n-1] - nums[0]);
     }
     return 0;
 }

@@ -46,48 +46,48 @@ const ll MOD = 998244353, mod=1e9+7;
 #define intin(v, n) for(int i = 0; i < n; i++) cin >> v[i];
 #define cout_space(v) for (int &c : v) cout << c << " "
 
+vector<int> manacher_odd(string s) {
+    int n = s.size();
+    s = "$" + s + "^";
+    vector<int> p(n + 2);
+    int l = 0, r = 1;
+    for(int i = 1; i <= n; i++) {
+        p[i] = min(r - i, p[l + (r - i)]);
+        while(s[i - p[i]] == s[i + p[i]]) {
+            p[i]++;
+        }
+        if(i + p[i] > r) {
+            l = i - p[i], r = i + p[i];
+        }
+    }
+    return vector<int>(begin(p) + 1, end(p) - 1);
+}
+
+vector<int> manacher(string s) {
+    string t;
+    for(auto c: s) {
+        t += string("#") + c;
+    }
+    auto res = manacher_odd(t + "#");
+    return vector<int>(begin(res) + 1, end(res) - 1);
+}
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
-    int T;
-    cin >> T;
-    while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
+    // ifstream cin("longestpalindrome.in");
+    // using Manacher's
+    string s;
+    cin >> s;
+    vi msl = manacher(s);
+    int maxi = 0, maxv = -1;
+    for (int i = 0; i < msl.size(); i++) {
+        if (maxv < msl[i]) {
+            maxv = msl[i];
+            maxi = i;
         }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
-        }
+        // cout << msl[i] << " " << i << endl;
     }
+    cout << s.substr(maxi/2 - (maxv/2)+1, maxv-1) << endl;
     return 0;
 }

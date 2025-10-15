@@ -50,44 +50,46 @@ const ll MOD = 998244353, mod=1e9+7;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
-    int T;
-    cin >> T;
-    while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
-        }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
+    ifstream cin("B.in");
+    int x, y;
+    cin >> x >> y;
+    double qc = M_PI * 5;
+    vvi isc(x, vi(y, 0));
+    for (int i = 0; i < x; i++) {
+        string s;
+        cin >> s;
+        for (int j = 0; j < y; j++) {
+            if (s[j] == 'O')
+                isc[i][j] = 1;
         }
     }
+    vector<vector<double>> dp(2*x, vector<double>(2*y, numeric_limits<double>::max()/10));
+    dp[0][0] = 0;
+    for (int i = 1; i < 2*x; i++) {
+        dp[i][0] = dp[i-1][0] + 5;
+    }
+    for (int i = 1; i < 2*y; i++) {
+        dp[0][i] = dp[0][i-1] + 5;
+    }
+    for (int i = 1; i < 2 * x; i++) {
+        for (int j = 1; j < 2 * y; j++) {
+            if (i == j && i % 2 == 1) {
+                continue;
+            }
+            if (isc[i / 2][j / 2] == 1) {
+                if ()
+                    // currently on right edge of circle
+                    dp[i][j] = min(dp[i][j], dp[i-1][j-1] + qc);
+                else{
+                    continue;
+                }
+            }
+            else {
+                // square, do a linear add
+                dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + 5;
+            }
+        }
+    }
+    cout << dp[2*x-1][2*y-1] << endl;
     return 0;
 }

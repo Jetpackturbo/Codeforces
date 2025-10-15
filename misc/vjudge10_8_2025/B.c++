@@ -33,61 +33,56 @@ typedef vector<bool> vb;
 typedef vector<vector<ll> > vvll;
 typedef vector<string> vs;
 
-// #define endl '\n'
-// #define no cout<<"NO"<<endl
-// #define yes cout<<"YES"<<endl
+#define endl '\n'
+#define no cout<<"NO"<<endl
+#define yes cout<<"YES"<<endl
 #define en end()
 #define be begin()
 #define fo(a,b,c) for(int i = a; i < b; i+=c)
 #define srt(a) sort(a.be, a.en)
-#define NMAX numeric_limits<ll>::max()
-const ll MOD = 998244353, mod=1e9+7;
-#define NMIN numeric_limits<int>::min()
+// #define NMAX numeric_limits<ll>::max()
+// const ll MOD = 998244353, mod=1e9+7;
+// #define NMIN numeric_limits<int>::min()
 #define intin(v, n) for(int i = 0; i < n; i++) cin >> v[i];
 #define cout_space(v) for (int &c : v) cout << c << " "
 
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    // ifstream cin("C.in");
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    // ifstream cin("B.in");
     int T;
     cin >> T;
     while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
+        int n, k;
+        cin >> n >> k;
+        unordered_map<int, int> S;
+        for (int i = 0; i < n; i++) {
+            int c;
+            cin >> c;
+            S[min(c % k, k- (c % k))]++;
+        }
         bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
+        for (int i = 0; i < n; i++) {
+            int c;
+            cin >> c;
+            c = min(c % k, k-(c% k));
+            S[c]--;
+            if (S[c] < 0) {
                 works = false;
             }
         }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
-        }
+        // for (auto &cp : S) {
+        //     if (cp.second != 0){
+        //         works = false;
+        //         break;
+        //     }
+        // }
+        if (works)
+            yes;
+        else
+            no;
     }
     return 0;
 }

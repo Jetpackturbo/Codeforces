@@ -33,6 +33,7 @@ typedef vector<bool> vb;
 typedef vector<vector<ll> > vvll;
 typedef vector<string> vs;
 
+
 // #define endl '\n'
 // #define no cout<<"NO"<<endl
 // #define yes cout<<"YES"<<endl
@@ -47,47 +48,45 @@ const ll MOD = 998244353, mod=1e9+7;
 #define cout_space(v) for (int &c : v) cout << c << " "
 
 
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    // ifstream cin("C.in");
-    int T;
-    cin >> T;
-    while (T--) {
-        int n;
-        cin >> n;
-        vi nums(n);
-        cin >> nums[0];
-        int p = nums[0] % 2;
-        bool works = true;
-        fo(1, n, 1) {
-            cin >> nums[i];
-            if (nums[i] % 2 != p) {
-                works = false;
-            }
-        }
-        if (!works)
-            cout << -1 << endl;
-        else {
-            vi res;
-            int cn = 1 << 29;
-            while (cn > 0) {
-                res.push_back(cn);
-                for (int i = 0; i < n; i++) {
-                    nums[i] = abs(nums[i] - cn);
-                }
-                cn /= 2;
-            }
-            for (int i = 0; i < n; i++) {
-                if (nums[i] != 0) {
-                    res.push_back(1);
-                    break;    
-                }
-            }
-            cout << (int)res.size() << endl;
-            cout_space(res);
-            cout << endl;
-        }
+    // ifstream cin("c.in");
+    string s, p;
+    cin >> s >> p;
+    int ck, n = s.length();
+    cin >> ck;
+    vi good(26,0);
+    fo(0,26,1)
+        good[i] = p[i] - '0';
+    vll badn(n+1, 0);
+    for (int i = 1; i <= n; i++) {
+        badn[i] = badn[i-1] + 1 - good[s[i-1] - 'a'];
     }
+    ll count = 0;
+    
+    vll pows(n);
+    pows[0] = 1;
+    for (int i = 1; i < n; i++)
+        pows[i] = (pows[i-1] * 26) % mod;
+
+    vll h(n + 1, 0);
+    for (int i = 0; i < n; i++)
+        h[i+1] = (h[i] + (s[i] - 'a' + 1) * pows[i]) % mod;
+
+    for (int l = 1; l <= n; l++) {
+        unordered_set<ll> hs;
+        for (int i = 0; i <= n - l; i++) {
+            if (badn[i + l] - badn[i] > ck)
+                continue;
+            ll cur_h = (h[i + l] + mod - h[i]) % mod;
+            cur_h = (cur_h * pows[n-i-1]) % mod;
+            hs.insert(cur_h);
+        }
+        // cout << hs.size() << endl;
+        count += hs.size();
+    }
+    cout << count << endl;
     return 0;
 }
