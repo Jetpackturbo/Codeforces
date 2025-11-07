@@ -34,8 +34,8 @@ typedef vector<vector<ll> > vvll;
 typedef vector<string> vs;
 
 #define endl '\n'
-// #define no cout<<"NO"<<endl
-// #define yes cout<<"YES"<<endl
+#define no cout<<"NO"<<endl
+#define yes cout<<"YES"<<endl
 #define en end()
 #define be begin()
 #define fo(a,b,c) for(int i = a; i < b; i+=c)
@@ -45,6 +45,8 @@ const ll MOD = 998244353, mod=1e9+7;
 #define NMIN numeric_limits<int>::min()
 #define intin(v, n) for(int i = 0; i < n; i++) cin >> v[i];
 #define cout_space(v) for (int &c : v) cout << c << " "
+#define prtln cout << endl;
+#define yesno(c) if (c) yes else no
 
 
 int main() {
@@ -74,7 +76,7 @@ int main() {
             pc = c;
         }
         cout_space(ret);
-        cout << endl;
+        prtln;
     }
     return 0;
 }

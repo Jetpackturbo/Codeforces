@@ -1,0 +1,87 @@
+9
+11 4 10000
+15
+11 C ac
+34 J ac
+52 E ac
+61 D ac
+193 A rj
+207 A rj
+220 G ac
+245 A pd
+247 B pd
+269 H pd
+299 E pd
+299 F pd
+299 G pd
+299 I pd
+299 K pd
+11 6 900
+13
+11 C ac
+34 J ac
+52 D rj
+61 D ac
+193 A rj
+207 A rj
+220 G ac
+245 A pd
+247 A pd
+262 H pd
+299 D pd
+299 C pd
+299 E pd
+11 0 0
+2
+1 C rj
+2 D rj
+11 2 10
+3
+1 C ac
+9 B ac
+10 A rj
+11 2 20
+3
+1 C ac
+18 B ac
+250 D pd
+11 5 1000
+10
+1 C ac
+18 B ac
+200 F rj
+200 F rj
+200 F rj
+200 F rj
+200 F rj
+250 A pd
+260 D pd
+260 F pd
+10 3 281
+4
+1 A ac
+9 B ac
+20 D rj 
+250 D pd
+15 1 0
+3
+1 A ac
+2 D rj
+241 D pd
+15 5 1251
+15
+1 A rj
+1 A rj
+1 A rj
+1 A rj
+1 A rj
+1 A rj
+5 B ac
+250 A pd
+250 B pd
+250 C pd
+250 D pd
+250 E pd
+250 F pd
+250 G pd
+250 H pd
