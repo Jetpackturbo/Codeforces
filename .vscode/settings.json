@@ -69,6 +69,7 @@
         "vector": "cpp",
         "array": "cpp",
         "complex": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "filesystem": "cpp"
     }
 }
